@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="navbar">
+            <figure><img src="img/ufop-icon.png"></figure>
+            <figure><img src="img/iceatv.png"></figure>
+        </div>
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="img/1.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="img/2.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="img/3.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="vids/1.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="img/4.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="vids/2.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="vids/3.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="mySlides fade">
+                <video class="video" style="width:100%">
+                    <source src="vids/4.mp4" type="video/mp4" />
+                </video>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="date"></div>
+        </div>
+        <script>
+            let slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            document.querySelectorAll('video')[0].autoplay = true;
+            document.querySelectorAll('video')[0].load();
+
+            for (let i = 0; i < document.querySelectorAll('video').length; i++) {
+                document.querySelectorAll('video')[i].addEventListener('ended', myHandler, false);
+                function myHandler(e) {
+                    if (e) {
+                        document.querySelectorAll('video')[slideIndex].autoplay = true;
+                        document.querySelectorAll('video')[slideIndex].load();
+                        plusSlides(1);
+                    }
+                }
+            }
+
+            function showSlides(n) {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                if (n > slides.length) {slideIndex = 1}    
+                if (n < 1) {slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";  
+                }
+                slides[slideIndex-1].style.display = "block";
+            }
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
+            }
+
+            function startTime() {
+                var today = new Date();
+                var y = today.getFullYear();
+                var mon = today.getMonth();
+                var d = today.getDate();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+                d = checkTime(d);
+                mon = checkTime(mon);
+                m = checkTime(m);
+                s = checkTime(s);
+                document.querySelectorAll(".date")[0].innerHTML = d + "/" + mon + "/" + y + " - " + h + ":" + m + ":" + s;
+                t = setTimeout(function() {
+                    startTime();
+                }, 1000);
+            }
+            startTime();
+        </script>
+    </body>
+</html>
